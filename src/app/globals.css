@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f1e9ff; /* 파스텔 라벤더 */
+  --foreground: #2e2346; /* 짙은 보라 계열 글자색 */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-jua), sans-serif;
+}
+
+body {
+  background: linear-gradient(180deg, #f6f0ff 0%, var(--background) 45%, #e6d9fb 100%);
+  background-attachment: fixed;
+  color: var(--foreground);
+  font-family: var(--font-jua), sans-serif;
+}
