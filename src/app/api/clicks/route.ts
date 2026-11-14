@@ -1,3 +1,4 @@
+import { connection } from "next/server";
 import { profile } from "@/data/profile";
 import { getClicksCollection } from "@/lib/mongodb";
 
@@ -24,8 +25,9 @@ export async function POST(request: Request) {
   return Response.json({ ok: true });
 }
 
-// 링크별 클릭 수 조회
+// 링크별 클릭 수 조회 — 빌드 때 고정되지 않도록 항상 요청 시점에 실행
 export async function GET() {
+  await connection();
   const clicks = await getClicksCollection();
   if (!clicks) return Response.json({});
   const docs = await clicks.find({}).toArray();
