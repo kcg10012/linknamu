@@ -1,24 +1,26 @@
-import type { Metadata } from "next";
-import { Jua } from "next/font/google";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
-
-// 둥글고 두툼한 한글 폰트(배달의민족 주아체). 굵은 한 가지 굵기만 있어 그 자체로 볼드체처럼 보입니다.
-const jua = Jua({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-jua",
-  // 한글 글꼴 파일은 커서 미리 불러오지 않음
-  preload: false,
-});
 
 export const metadata: Metadata = {
   title: "링크나무",
   description: "내 모든 링크를 한 페이지에",
 };
 
+export const viewport: Viewport = {
+  themeColor: "#fdf6ee",
+};
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="ko" className={`${jua.variable} h-full antialiased`}>
+    <html lang="ko" className="h-full antialiased">
+      <head>
+        {/* Pretendard: 한글·영문 모두 깔끔한 산세리프. 화면에 쓰인 글자만 내려받는 dynamic subset 버전 */}
+        <link
+          rel="stylesheet"
+          crossOrigin="anonymous"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+        />
+      </head>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

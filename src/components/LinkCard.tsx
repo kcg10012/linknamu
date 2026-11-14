@@ -2,6 +2,7 @@
 
 type Props = {
   id: string;
+  emoji: string;
   title: string;
   url: string;
 };
@@ -16,16 +17,27 @@ function recordClick(linkId: string) {
   }
 }
 
-export default function LinkCard({ id, title, url }: Props) {
+export default function LinkCard({ id, emoji, title, url }: Props) {
+  // mailto: 링크는 새 탭 대신 메일 앱으로 바로 연결
+  const isWeb = url.startsWith("http");
+
   return (
     <a
       href={url}
-      target="_blank"
-      rel="noopener noreferrer"
+      {...(isWeb && { target: "_blank", rel: "noopener noreferrer" })}
       onClick={() => recordClick(id)}
-      className="block w-full rounded-xl border-2 border-purple-200 bg-white/70 px-5 py-4 text-center text-lg shadow-sm transition hover:-translate-y-0.5 hover:border-purple-300 hover:bg-purple-200/70 active:translate-y-0"
+      className="group grid w-full grid-cols-[2rem_1fr_2rem] items-center rounded-2xl border border-white/70 bg-white/45 px-4 py-4 shadow-[0_6px_24px_-12px_rgb(150_80_40/0.25)] backdrop-blur-xl transition duration-200 ease-out hover:-translate-y-px hover:bg-white/65 hover:shadow-[0_10px_28px_-12px_rgb(150_80_40/0.32)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:translate-y-0"
     >
-      {title}
+      <span aria-hidden className="text-xl leading-none">
+        {emoji}
+      </span>
+      <span className="text-center text-[0.97rem] font-semibold">{title}</span>
+      <span
+        aria-hidden
+        className="justify-self-end text-foreground/30 transition duration-200 group-hover:translate-x-0.5 group-hover:text-foreground/50"
+      >
+        →
+      </span>
     </a>
   );
 }

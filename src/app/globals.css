@@ -1,19 +1,37 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f1e9ff; /* 파스텔 라벤더 */
-  --foreground: #2e2346; /* 짙은 보라 계열 글자색 */
+  --background: #fdf6ee; /* 크림색 */
+  --foreground: #2b211c; /* 따뜻한 짙은 갈색 글자색 */
+  --accent: #e8a27c; /* 살구색 포인트 */
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-jua), sans-serif;
+  --color-accent: var(--accent);
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
+    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
 }
 
 body {
-  background: linear-gradient(180deg, #f6f0ff 0%, var(--background) 45%, #e6d9fb 100%);
+  /* 크림색 → 연한 살구색 그라데이션 */
+  background: linear-gradient(165deg, #fffaf3 0%, var(--background) 40%, #fbe3d2 100%);
   background-attachment: fixed;
   color: var(--foreground);
-  font-family: var(--font-jua), sans-serif;
+  font-family: var(--font-sans);
+  letter-spacing: -0.01em;
+  word-break: keep-all;
+}
+
+/* 글래스 카드 뒤로 은은하게 비치는 빛 번짐 (장식용) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(40rem 28rem at 15% 10%, rgb(255 214 186 / 0.55), transparent 70%),
+    radial-gradient(36rem 30rem at 90% 85%, rgb(255 190 160 / 0.4), transparent 70%);
 }
